@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+<head th:replace="~{base :: head}"></head>
+<body>
+    <nav th:replace="~{base :: menu}"></nav>
+
+    <div class="container">
+
+        <div th:replace="~{base :: titulo('Novo pedido')}"></div>
+
+        <nav class="px-4 navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" th:href="@{/usuario/pedidos}">Voltar</a>
+            </div>
+        </nav>
+
+        <div class="card">
+            <form th:object="${requisicaoPedido}" th:action="@{/pedido/formulario}" method="POST">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect01">Produto</label>
+                            </div>
+                            <select th:errorclass="is-invalid" th:field="*{produto}" class="form-select" id="inputGroupSelect01">
+                                <option  th:each="produto : ${produtos}" th:value="${produto.id}" th:text="${produto.nome}"></option>
+                            </select>
+                        </div>
+                        <div>
+                            <a th:href="@{/produto/formulario}" class="btn btn-primary">Adicionar</a>
+                        </div>
+                    </div>
+                    <div class="invalid-feedback"  th:errors="*{produto}"></div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Quantidade</span>
+                        </div>
+                        <input th:errorclass="is-invalid" th:field="*{quantidade}" type="text" class="form-control">
+                    </div>
+                    <div class="invalid-feedback" th:errors="*{quantidade}"></div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">CEP da Entrega</span>
+                        </div>
+                        <input th:errorclass="is-invalid" th:field="*{cep}" type="text" class="form-control">
+                    </div>
+                    <div class="invalid-feedback" th:errors="*{cep}"></div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Email para contato</span>
+                        </div>
+                        <input th:errorclass="is-invalid" th:field="*{email}" type="text" class="form-control">
+                    </div>
+                    <div class="invalid-feedback" th:errors="*{email}"></div>
+                    <button type="submit" class="btn btn-success">Criar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

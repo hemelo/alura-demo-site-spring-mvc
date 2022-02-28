@@ -1,0 +1,86 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+<head th:replace="~{base :: head}"></head>
+<body>
+<nav th:replace="~{base :: menu}"></nav>
+
+<div class="container">
+
+    <div th:replace="~{base :: titulo('Pedido')}"></div>
+
+    <nav class="px-4 navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
+        <div class="navbar-nav">
+            <a th:classappend="${status} == null ? 'active'" class="nav-item nav-link" th:href="@{/usuario/pedidos}">Voltar</a>
+        </div>
+        <form class="mb-0" th:action="@{/usuario/pedido/{pedido}/finalizar(pedido=${pedido.id})}" method="POST"><button class="btn btn-outline-secondary">Finalizar</button></form>
+    </nav>
+
+    <div class="card mb-3">
+        <th:block th:switch="${pedido.situacao.name()}">
+            <div th:case="'AGUARDANDO'" class="card-header alert-secondary" th:text="${pedido.produto.nome}"></div>
+            <div th:case="'APROVADO'" class="card-header alert-warning" th:text="${pedido.produto.nome}"></div>
+            <div th:case="'ENTREGUE'" class="card-header alert-success" th:text="${pedido.produto.nome}"></div>
+        </th:block>
+
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-sm-8">
+                    <div class="row mb-2">
+                        <div class="col-md-7">Valor Negociado: <span th:if="${pedido.valorNegociado != null}" th:text="${'R$ ' + #numbers.formatDecimal(pedido.valorNegociado, 3, 'POINT', 2, 'COMMA')}"></span></div>
+                        <div class="col-md-5">Entrega: <span th:if="${pedido.dataDaEntrega != null}" th:text="${#temporals.format(pedido.dataDaEntrega, 'dd/MM/YYYY')}"></span></div>
+                    </div>
+                    <div>Produto</div>
+                    <div><input class="form-control mb-2" th:value="${pedido.produto.nome}" /></div>
+
+                    <div>Descrição</div>
+                    <textarea class="form-control mb-2" th:text="${pedido.produto.descricao}"></textarea>
+
+                    <div class="row mb-2">
+                        <div class="col-md-5">CEP <span th:text="${pedido.cliente.cep}"></span></div>
+                        <div class="col-md-7">Email: <span th:text="${pedido.cliente.email}"></span></div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-4">
+                    <img class="img-thumbnail" th:src="${pedido.produto.image}">
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Valor Total</th>
+                            <th scope="col">Comentário</th>
+                            <th scope="col">Data de Entrega</th>
+                            <th scope="col">Opções</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <th:block th:each="oferta : ${pedido.ofertas}">
+                            <tr th:classappend="${oferta.situacao.name() == 'RECUSADA'} ? 'table-danger'" >
+                                <td th:text="${oferta.valor}"></td>
+                                <td th:text="${oferta.comentario}"></td>
+                                <td th:text="${#temporals.format(oferta.dataDaEntrega, 'dd/MM/YYYY')}"></td>
+                                <td>
+                                    <div th:if="${pedido.situacao.name() == 'AGUARDANDO' && oferta.situacao.name() == 'PENDENTE' }" class="d-flex flex-row">
+                                        <form class="mb-0" th:action="@{/usuario/pedido/{pedido}/recusar/{oferta}(pedido=${pedido.id}, oferta=${oferta.id})}" method="POST">
+                                            <button class="mr-2 btn btn-danger" type="submit">
+                                                Recusar
+                                            </button>
+                                        </form>
+                                        <form  class="mb-0"  th:action="@{/usuario/pedido/{pedido}/aprovar/{oferta}(pedido=${pedido.id}, oferta=${oferta.id})}" method="POST">
+                                            <button class="btn btn-primary" type="submit">
+                                                Aceitar
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        </th:block>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

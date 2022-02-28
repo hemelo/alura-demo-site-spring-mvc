@@ -1,0 +1,56 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+    <head th:replace="~{base :: head}"></head>
+    <body>
+        <nav th:replace="~{base :: menu}"></nav>
+
+        <div class="container">
+
+            <div th:replace="~{base :: titulo('Meus pedidos')}"></div>
+
+            <nav class="px-4 navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
+                <div class="navbar-nav">
+                    <a th:classappend="${status} == null ? 'active'" class="nav-item nav-link" th:href="@{/usuario/pedidos}">Todos</a>
+                    <a th:classappend="${status} == 'AGUARDANDO' ? 'active'" class="nav-item nav-link" th:href="@{/usuario/pedidos/aguardando}">Aguardando</a>
+                    <a th:classappend="${status} == 'APROVADO' ? 'active'" class="nav-item nav-link" th:href="@{/usuario/pedidos/aprovado}">Aprovado</a>
+                    <a th:classappend="${status} == 'ENTREGUE' ? 'active'" class="nav-item nav-link" th:href="@{/usuario/pedidos/entregue}">Entregue</a>
+                </div>
+                <a th:href="@{/pedido/formulario}"><button class="btn btn-outline-secondary my-2 my-sm-0">Novo</button></a>
+            </nav>
+
+            <div class="card mb-3" th:each="pedido : ${pedidos}">
+                <th:block th:switch="${pedido.situacao.name()}">
+                    <div th:case="'AGUARDANDO'" class="card-header alert-secondary" th:text="${pedido.produto.nome}"></div>
+                    <div th:case="'APROVADO'" class="card-header alert-warning" th:text="${pedido.produto.nome}"></div>
+                    <div th:case="'ENTREGUE'" class="card-header alert-success" th:text="${pedido.produto.nome}"></div>
+                </th:block>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 col-sm-8">
+                            <div class="row mb-2">
+                                <div class="col-md-5">Valor <span th:if="${pedido.valorNegociado != null}" th:text="${'R$ ' + #numbers.formatDecimal(pedido.valorNegociado, 3, 'POINT', 2, 'COMMA')}"></span></div>
+                                <div class="col-md-7">Data de entrega <span th:if="${pedido.dataDaEntrega != null}" th:text="${#temporals.format(pedido.dataDaEntrega, 'dd/MM/YYYY')}"></span></div>
+                            </div>
+                            <div>Produto</div>
+                            <div><input class="form-control mb-2" th:value="${pedido.produto.nome}" /></div>
+
+                            <div>Descrição</div>
+                            <textarea class="form-control mb-2" th:text="${pedido.produto.descricao}"></textarea>
+
+                            <div>CEP</div>
+                            <div><input class="form-control mb-2" th:value="${pedido.cliente.cep}" /></div>
+
+                            <div>Email</div>
+                            <div><input class="form-control mb-2" th:value="${pedido.cliente.email}" /></div>
+
+                            <a th:href="@{/usuario/pedido/{pedido}(pedido = ${pedido.id})}" class="btn btn-primary">Ver detalhes</a>
+                        </div>
+                        <div class="col-12 col-sm-4">
+                            <img class="img-thumbnail" th:src="${pedido.produto.image}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

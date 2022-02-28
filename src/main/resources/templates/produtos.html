@@ -1,0 +1,35 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+<head th:replace="~{base :: head}"></head>
+<body>
+<nav th:replace="~{base :: menu}"></nav>
+
+<div class="container">
+
+    <div th:replace="~{base :: titulo('Produtos desejados')}"></div>
+
+    <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
+        <a th:href="@{/produto/formulario}"><button class="btn btn-outline-secondary my-2 my-sm-0">Novo</button></a>
+    </nav>
+
+    <div class="card mb-3" th:each="produto : ${produtos}">
+
+        <div class="card-header alert-secondary" th:text="${produto.nome}"></div>
+
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-sm-8">
+                    <div>Produto</div>
+                    <div><input class="form-control" th:value="${produto.nome}" /></div>
+
+                    <div>Descrição</div>
+                    <textarea class="form-control" th:text="${produto.descricao}"></textarea>
+                </div>
+                <div class="col-12 col-sm-4">
+                    <img class="img-thumbnail" th:src="${produto.image}">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

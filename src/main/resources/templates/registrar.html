@@ -1,0 +1,33 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+<head th:replace="~{base :: head}"></head>
+<body>
+
+<nav th:replace="~{base :: menu}"></nav>
+
+<div class="container">
+    <div th:replace="~{base :: titulo('Registrar')}"></div>
+
+    <div th:object="${requisicaoNovoUsuario}" class="card">
+        <div class="card-body">
+            <form th:action="@{/registrar}" class="mb-0" method="post">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Username</span>
+                    </div>
+                    <input  th:errorclass="is-invalid" th:field="*{username}" type="text" class="form-control">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Senha</span>
+                    </div>
+                    <input  th:errorclass="is-invalid" th:field="*{senha}" type="password" class="form-control">
+                </div>
+
+                <button type="submit" class="btn btn-success">Registrar</button>
+                <span>Já registrado? <a th:href="@{/login}">Login</a></span>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

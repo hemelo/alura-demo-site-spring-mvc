@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+<head th:replace="~{base :: head}"></head>
+<body>
+    <nav th:replace="~{base :: menu}"></nav>
+
+    <div class="container">
+
+        <div th:replace="~{base :: titulo('Novo produto')}"></div>
+
+        <div class="card">
+            <form th:object="${requisicaoProduto}" th:action="@{/produto/formulario}" method="POST">
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Nome</span>
+                        </div>
+                        <input th:errorclass="is-invalid" th:field="*{nome}" type="text" class="form-control">
+                    </div>
+                    <div class="invalid-feedback" th:errors="*{nome}"></div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Descrição</span>
+                        <textarea class="form-control" th:field="*{descricao}" aria-label="With textarea"></textarea>
+                    </div>
+                    <div class="invalid-feedback" th:errors="*{descricao}"></div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">URL Imagem</span>
+                        </div>
+                        <input th:errorclass="is-invalid" th:field="*{urlImage}" type="text" class="form-control">
+                    </div>
+                    <div class="invalid-feedback" th:errors="*{urlImage}"></div>
+                    <button type="submit" class="btn btn-success">Criar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+<head th:replace="~{base :: head}"></head>
+<body>
+    <nav th:replace="~{base :: menu}"></nav>
+
+    <div class="container">
+
+        <div th:replace="~{base :: titulo('Últimos Pedidos')}"></div>
+
+        <div class="card mb-3" th:each="pedido : ${pedidos}">
+            <div class="card-header alert-success" th:text="${pedido.produto.nome}"></div>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-sm-8">
+                        <div>Data de entrega <span th:if="${pedido.dataDaEntrega != null}" th:text="${#temporals.format(pedido.dataDaEntrega, 'dd/MM/YYYY')}"></span></div>
+                        <div>Produto</div>
+                        <div><input class="form-control" th:value="${pedido.produto.nome}" /></div>
+
+                        <div>Descrição</div>
+                        <textarea class="form-control" th:text="${pedido.produto.descricao}"></textarea>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <img class="img-thumbnail" th:src="${pedido.produto.image}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
