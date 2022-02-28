@@ -2,7 +2,14 @@
 Projeto desenvolvido no curso de Spring Web da Alura
 
 ## Tecnologias utilizadas
-Java Spring Boot (Módulos MVC, Data JPA e Security), Thymeleaf, VueJs com Axios, Bootstrap
+![](https://img.shields.io/static/v1?label=Spring&message=Spring%20boot&color=brightgreen&style=for-the-badge&logo=Springboot)
+![](https://img.shields.io/static/v1?label=Spring&message=Spring%20data%20jpa&color=inactive&style=for-the-badge)
+![](https://img.shields.io/static/v1?label=Spring&message=Spring%20mvc&color=inactive&style=for-the-badge)
+![](https://img.shields.io/static/v1?label=Spring&message=Spring%20security&color=inactive&style=for-the-badge)
+![](https://img.shields.io/static/v1?label=XHTML&message=Thymeleaf&color=brightgreen&style=for-the-badge&logo=thymeleaf)
+![](https://img.shields.io/static/v1?label=Javascript&message=Vue&color=brightgreen&style=for-the-badge&logo=vue.js)
+![](https://img.shields.io/static/v1?label=HTTP%20Client&message=Axios&color=inactive&style=for-the-badge)
+![](https://img.shields.io/static/v1?label=css&message=Bootstrap&color=purple&style=for-the-badge&logo=Bootstrap)
 
 ## Principais coisas que aprendi
 
