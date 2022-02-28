@@ -9,6 +9,8 @@ Java Spring Boot (Módulos MVC, Data JPA e Security), Thymeleaf, VueJs com Axios
 - Spring Boot Framework
 - Desenvolvimento Web com Java
 - REST API
+- Validação de Dados com Regex e POO
+- Anotações @ no Java e como elas funcionam
 
 ## O que é o Site
 
