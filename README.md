@@ -2,7 +2,7 @@
 Projeto desenvolvido no curso de Spring Web da Alura
 
 ## Tecnologias utilizadas
-Java Spring Boot (Módulos MVC, Data JPA e Security), Thymeleaf, VueJs com Axios 
+Java Spring Boot (Módulos MVC, Data JPA e Security), Thymeleaf, VueJs com Axios, Bootstrap
 
 ## Principais coisas que aprendi
 
